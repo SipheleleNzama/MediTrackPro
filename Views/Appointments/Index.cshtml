@@ -1,4 +1,38 @@
 ﻿@model IEnumerable<MediTrackPro.Models.Appointment>
 
-<h2>Appointments</h2>
-<!-- Add your calendar or table view here -->
+@{
+    ViewData["Title"] = "Appointments";
+}
+
+<div class="page-header">
+    <h1>@ViewData["Title"]</h1>
+</div>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Date/Time</th>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Status</th>
+            <th class="action-links">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.DateTime.ToString("g")</td>
+                <td>@item.Patient?.FirstName @item.Patient?.LastName</td>
+                <td>Dr. @item.Doctor?.LastName</td>
+                <td>@item.Status</td>
+                <td class="action-links">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Schedule New Appointment</a>

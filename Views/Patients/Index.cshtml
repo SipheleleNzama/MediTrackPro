@@ -1,20 +1,30 @@
 ﻿@model IEnumerable<MediTrackPro.Models.Patient>
 
-<h2>Patients</h2>
-<table class="table">
-    <thead>
+@{
+    ViewData["Title"] = "Patients";
+}
+
+<div class="page-header">
+    <h1>@ViewData["Title"]</h1>
+</div>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
         <tr>
             <th>Name</th>
             <th>Contact</th>
-            <th>Actions</th>
+            <th>ID Number</th>
+            <th class="action-links">Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
             <tr>
                 <td>@item.FirstName @item.LastName</td>
                 <td>@item.ContactNumber</td>
-                <td>
+                <td>@item.IDNumber</td>
+                <td class="action-links">
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                 </td>
@@ -22,3 +32,5 @@
         }
     </tbody>
 </table>
+
+<a asp-action="Create" class="btn btn-primary">Add New Patient</a>

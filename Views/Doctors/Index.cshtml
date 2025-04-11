@@ -1,6 +1,36 @@
 ﻿@model IEnumerable<MediTrackPro.Models.Doctor>
 
-<h2>Doctors</h2>
-<table class="table">
-    <!-- Add your table headers/rows here -->
+@{
+    ViewData["Title"] = "Doctors";
+}
+
+<div class="page-header">
+    <h1>@ViewData["Title"]</h1>
+</div>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Specialty</th>
+            <th>Contact</th>
+            <th class="action-links">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FirstName @item.LastName</td>
+                <td>@item.Specialty</td>
+                <td>@item.ContactNumber</td>
+                <td class="action-links">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+<a asp-action="Create" class="btn btn-primary">Add New Doctor</a>
