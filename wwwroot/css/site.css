@@ -147,3 +147,48 @@ body {
         transform: translateY(-1px);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+tr.urgent {
+    background-color: #fff8e6;
+    border-left: 4px solid #ffc107;
+}
+
+tr.past-due {
+    background-color: #ffebee;
+    border-left: 4px solid #f44336;
+}
+
+#calendarLoading {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.fc-event {
+    cursor: pointer;
+}
+
+.dashboard-card {
+    transition: transform 0.2s;
+}
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+    }

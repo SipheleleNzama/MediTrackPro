@@ -34,5 +34,6 @@ namespace MediTrackPro.Data
                 .WithMany(d => d.Appointments)
                 .HasForeignKey(a => a.DoctorId);
         }
+        
     }
 }

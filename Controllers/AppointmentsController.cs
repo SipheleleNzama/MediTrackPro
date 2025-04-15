@@ -3,6 +3,7 @@ using MediTrackPro.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace MediTrackPro.Controllers
 {
@@ -46,6 +47,8 @@ namespace MediTrackPro.Controllers
             ViewData["DoctorId"] = new SelectList(_context.Doctors, "Id", "LastName", appointment.DoctorId);
             ViewData["PatientId"] = new SelectList(_context.Patients, "Id", "LastName", appointment.PatientId);
             return View(appointment);
-        }
+        } 
+
+
     }
 }
