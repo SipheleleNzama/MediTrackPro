@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MediTrackPro.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MediTrackPro.Controllers;
 
@@ -21,4 +22,5 @@ public class HomeController : Controller
     {
         return View(); 
     }
+
 }

@@ -2,59 +2,166 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>@ViewData["Title"] - MediTrackPro</title>
-    <script type="importmap"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] | MediTrackPro Healthcare System</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MediTrackPro.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        :root {
+            --primary-accent: #2c3e50;
+            --secondary-accent: #3498db;
+            --light-accent: #f8f9fa;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item {
+            margin: 0 0.25rem;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+            .nav-link:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            background-color: var(--primary-accent);
+            color: white;
+        }
+
+            footer a {
+                color: #a3c4ff;
+                text-decoration: none;
+            }
+    </style>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-flui`d">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MediTrackPro</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+<body class="d-flex flex-column min-vh-100">
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: var(--primary-accent);">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-hospital-alt me-2"></i>
+                    <span>MediTrackPro</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home me-1"></i> Dashboard
+                            </a>
                         </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="patientsDropdown" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-injured me-1"></i> Patient Management
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" asp-controller="Patients" asp-action="Index">
+                                    <i class="fas fa-list me-2"></i> Patient Registry
+                                </a>
+                                <a class="dropdown-item" asp-controller="Patients" asp-action="Create">
+                                    <i class="fas fa-plus-circle me-2"></i> New Patient
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="appointmentsDropdown" data-bs-toggle="dropdown">
+                                <i class="fas fa-calendar-check me-1"></i> Appointments
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" asp-controller="Appointments" asp-action="Index">
+                                    <i class="fas fa-list me-2"></i> Schedule
+                                </a>
+                                <a class="dropdown-item" asp-controller="Appointments" asp-action="Create">
+                                    <i class="fas fa-plus-circle me-2"></i> New Appointment
+                                </a>
+                            </div>
+                        </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-controller="Doctors" asp-action="Index">
+                                <i class="fas fa-user-md me-1"></i> Medical Staff
+                            </a>
                         </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Patients" asp-action="Index">Patients</a>
-                            </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointments" asp-action="Index">Appointments</a>
-                            </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Doctors" asp-action="Index">Doctors</a>
-                            </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - MediTrackPro - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <main class="container py-4 flex-grow-1">
+        @RenderBody()
+    </main>
+
+    <footer class="py-3 mt-auto">
+        <div class="container text-center">
+            <div class="d-flex justify-content-center align-items-center">
+                <span class="me-3">&copy; @DateTime.Now.Year MediTrackPro Healthcare Management System</span>
+                <a asp-controller="Home" asp-action="Privacy" class="me-3">Privacy Policy</a>
+                <a href="#" class="me-3">Terms of Service</a>
+                <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+            </div>
         </div>
     </footer>
+
+    <!-- Notification System -->
+    <div aria-live="polite" aria-atomic="true" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+        <div id="notificationContainer" class="toast-container"></div>
+    </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `toast show align-items-center text-white bg-${type}`;
+            notification.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} me-2"></i>
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            `;
+            document.getElementById('notificationContainer').appendChild(notification);
+            setTimeout(() => notification.remove(), 5000);
+        }
+
+        // Display temp data notifications
+        @if (TempData["NotificationMessage"] != null)
+        {
+            <text>
+                showNotification('@TempData["NotificationMessage"]', '@TempData["NotificationType"]');
+            </text>
+        }
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

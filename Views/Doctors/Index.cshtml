@@ -1,100 +1,108 @@
 ﻿@model IEnumerable<MediTrackPro.Models.Doctor>
 
 @{
-    ViewData["Title"] = "Doctors";
+    ViewData["Title"] = "Medical Staff Directory";
 }
 
-<div class="doctors-container" style="background-color: #f5f9fc; min-height: 100vh; padding: 2rem 0;">
-    <div class="container">
-        <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h1 style="color: #2c3e50; font-weight: 600;">
-                    <i class="fas fa-user-md me-2" style="color: #3498db;"></i>@ViewData["Title"]
-                </h1>
-                <p class="text-muted">Manage medical staff and specialists</p>
-            </div>
-            <div class="text-end">
-                <a asp-action="Create" class="btn btn-primary" style="background-color: #3498db; border: none;">
-                    <i class="fas fa-plus-circle me-1"></i> Add New Doctor
-                </a>
-            </div>
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="display-5 fw-semibold text-primary">
+                <i class="fas fa-user-md me-2"></i>@ViewData["Title"]
+            </h1>
+            <p class="lead text-muted">Manage physician and specialist records</p>
         </div>
+        <div>
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-user-plus me-2"></i>Register New Practitioner
+            </a>
+        </div>
+    </div>
 
-        <!-- Doctors Table -->
-        <div class="card border-0 shadow-sm">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead style="background-color: #3498db; color: white;">
-                            <tr>
-                                <th><i class="fas fa-user-tie me-1"></i> Doctor</th>
-                                <th><i class="fas fa-stethoscope me-1"></i> Specialty</th>
-                                <th><i class="fas fa-phone me-1"></i> Contact</th>
-                                <th class="text-end"><i class="fas fa-cog me-1"></i> Actions</th>
+    <div class="card border-0 shadow">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <th><i class="fas fa-id-card me-2"></i>Practitioner</th>
+                            <th><i class="fas fa-certificate me-2"></i>Specialization</th>
+                            <th><i class="fas fa-phone-alt me-2"></i>Contact</th>
+                            <th class="text-end"><i class="fas fa-cogs me-2"></i>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="py-3">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary bg-opacity-10 rounded-circle p-3 me-3">
+                                            <i class="fas fa-user-md text-primary"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">Dr. @item.LastName</h6>
+                                            <small class="text-muted">@item.FirstName</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.Specialty))
+                                    {
+                                        <span class="badge bg-primary bg-opacity-10 text-primary py-2 px-3">
+                                            <i class="fas fa-certificate me-1"></i>@item.Specialty
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Not specified</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.ContactNumber))
+                                    {
+                                        <a href="tel:@item.ContactNumber" class="text-decoration-none">
+                                            <i class="fas fa-phone-alt me-2"></i>@item.ContactNumber
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Not provided</span>
+                                    }
+                                </td>
+                                <td class="text-end">
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-pen-to-square me-1"></i>Edit
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-info-circle me-1"></i>Details
+                                        </a>
+                                    </div>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        <strong>Dr. @item.LastName</strong><br>
-                                        <small class="text-muted">@item.FirstName</small>
-                                    </td>
-                                    <td>
-                                        @if (!string.IsNullOrEmpty(item.Specialty))
-                                        {
-                                            <span class="badge" style="background-color: #e3f2fd; color: #0d47a1;">
-                                                @item.Specialty
-                                            </span>
-                                        }
-                                        else
-                                        {
-                                            <span class="text-muted">Not specified</span>
-                                        }
-                                    </td>
-                                    <td>
-                                        @if (!string.IsNullOrEmpty(item.ContactNumber))
-                                        {
-                                            @item.ContactNumber
-                                        }
-                                        else
-                                        {
-                                            <span class="text-muted">Not provided</span>
-                                        }
-                                    </td>
-                                    <td class="text-end">
-                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-1">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-
-<!-- Custom Styles -->
 <style>
-    .table-hover tbody tr:hover {
-        background-color: rgba(52, 152, 219, 0.1);
+    .table > :not(:first-child) {
+        border-top: none;
     }
 
-    .badge {
-        padding: 0.5em 0.75em;
-        font-size: 0.85em;
-        border-radius: 4px;
+    tr {
+        border-bottom: 1px solid #f0f0f0;
     }
-</style>  
 
+        tr:last-child {
+            border-bottom: none;
+        }
+
+    .btn-group .btn {
+        border-radius: 0.25rem !important;
+    }
+</style>
